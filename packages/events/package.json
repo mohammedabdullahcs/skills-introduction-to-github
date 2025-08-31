@@ -1,0 +1,20 @@
+{
+  "name": "@quran-crm-lms/events",
+  "version": "0.0.1",
+  "description": "Event schemas and emitter for Quran CRM & LMS",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.22.4",
+    "eventemitter3": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

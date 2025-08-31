@@ -1,75 +1,267 @@
-<header>
+# Quran CRM & LMS Monorepo
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
+A comprehensive Quran Customer Relationship Management and Learning Management System built with modern technologies in a Turborepo monorepo structure.
 
-# Introduction to GitHub
+## 🏗️ Architecture
 
-_Get started using GitHub in less than an hour._
+This monorepo contains:
 
-</header>
+- **apps/web** - Next.js 14 frontend with TypeScript, Tailwind CSS, and shadcn/ui
+- **apps/api** - NestJS backend API with TypeScript, Prisma, Zod validation, and BullMQ
+- **packages/db** - Shared database layer with Prisma schema, migrations, and seed scripts
+- **packages/ui** - Shared UI components library
+- **packages/events** - Event schemas and emitter using Zod
+- **infra/** - Docker infrastructure setup
 
-<!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
--->
+## 🚀 Quick Start
 
-## Step 1: Create a branch
+### Prerequisites
 
-_Welcome to "Introduction to GitHub"! :wave:_
+- Node.js 18+ and npm
+- Docker and Docker Compose
+- Git
 
-**What is GitHub?**: GitHub is a collaboration platform that uses _[Git](https://docs.github.com/get-started/quickstart/github-glossary#git)_ for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
-<br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=pBy1zgt0XPc)
+### Automated Setup (Recommended)
 
-**What is a repository?**: A _[repository](https://docs.github.com/get-started/quickstart/github-glossary#repository)_ is a project containing files and folders. A repository tracks versions of files and folders. For more information, see "[About repositories](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories)" from GitHub Docs.
+\`\`\`bash
+git clone <repository-url>
+cd quran-crm-lms-monorepo
+npm run setup
+\`\`\`
 
-**What is a branch?**: A _[branch](https://docs.github.com/en/get-started/quickstart/github-glossary#branch)_ is a parallel version of your repository. By default, your repository has one branch named `main` and it is considered to be the definitive branch. Creating additional branches allows you to copy the `main` branch of your repository and safely make any changes without disrupting the main project. Many people use branches to work on specific features without affecting any other parts of the project.
+This will automatically:
+1. Start Docker infrastructure
+2. Create environment file
+3. Install dependencies
+4. Build packages
+5. Set up database connection
 
-Branches allow you to separate your work from the `main` branch. In other words, everyone's work is safe while you contribute. For more information, see "[About branches](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)".
+### Manual Setup
 
-**What is a profile README?**: A _[profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)_ is essentially an "About me" section on your GitHub profile where you can share information about yourself with the community on GitHub.com. GitHub shows your profile README at the top of your profile page. For more information, see "[Managing your profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)".
+\`\`\`bash
+# 1. Clone and Install
+git clone <repository-url>
+cd quran-crm-lms-monorepo
+npm install
 
-![profile-readme-example](/images/profile-readme-example.png)
+# 2. Environment Setup
+cp .env.example .env
+# Edit .env with your configuration
 
-### :keyboard: Activity: Your first branch
+# 3. Start Infrastructure
+npm run docker:up
 
-1. Open a new browser tab and navigate to your newly made repository. Then, work on the steps in your second tab while you read the instructions in this tab.
-2. Navigate to the **< > Code** tab in the header menu of your repository.
+# 4. Database Setup
+npm run db:generate
+npm run db:migrate
+npm run db:seed
 
-   ![code-tab](/images/code-tab.png)
+# 5. Start Development
+npm run dev
+\`\`\`
 
-3. Click on the **main** branch drop-down.
+Your applications will be available at:
+- 🌐 **Web App**: http://localhost:3000
+- 🔗 **API**: http://localhost:3001
+- 📧 **MailHog UI**: http://localhost:8025
+- 🗄️ **Prisma Studio**: \`npx prisma studio\` (from packages/db)
 
-   ![main-branch-dropdown](/images/main-branch-dropdown.png)
+## 📦 Available Scripts
 
-4. In the field, name your branch `my-first-branch`. In this case, the name must be `my-first-branch` to trigger the course workflow.
-5. Click **Create branch: my-first-branch** to create your branch.
+### Root Commands
 
-   ![create-branch-button](/images/create-branch-button.png)
+\`\`\`bash
+npm run dev          # Start all apps in development
+npm run build        # Build all packages and apps
+npm run lint         # Lint all code
+npm run type-check   # Type check all TypeScript
+npm run test         # Run all tests
+npm run format       # Format code with Prettier
+\`\`\`
 
-   The branch will automatically switch to the one you have just created.
-   The **main** branch drop-down bar will reflect your new branch and display the new branch name.
+### Database Commands
 
-6. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+\`\`\`bash
+npm run db:generate  # Generate Prisma client
+npm run db:migrate   # Run database migrations
+npm run db:seed      # Seed the database
+\`\`\`
 
-<footer>
+### Docker Commands
 
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
+\`\`\`bash
+npm run docker:up    # Start all services
+npm run docker:down  # Stop all services
+\`\`\`
 
----
+## 🏢 Project Structure
 
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+\`\`\`
+quran-crm-lms-monorepo/
+├── apps/
+│   ├── web/                 # Next.js frontend
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── next.config.js
+│   └── api/                 # NestJS backend
+│       ├── src/
+│       ├── package.json
+│       └── nest-cli.json
+├── packages/
+│   ├── db/                  # Database layer
+│   │   ├── prisma/
+│   │   ├── package.json
+│   │   └── index.ts
+│   ├── ui/                  # Shared components
+│   │   ├── components/
+│   │   ├── package.json
+│   │   └── index.ts
+│   └── events/              # Event system
+│       ├── schemas.ts
+│       ├── emitter.ts
+│       └── package.json
+├── infra/
+│   └── docker-compose.yml   # Infrastructure setup
+├── .github/
+│   └── workflows/
+│       └── ci.yml           # CI/CD pipeline
+├── turbo.json               # Turborepo configuration
+├── package.json             # Root package.json
+└── README.md
+\`\`\`
 
-&copy; 2024 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+## 🧪 Testing
 
-</footer>
+\`\`\`bash
+# Run all tests
+npm run test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests for specific package
+npx turbo test --filter=@quran-crm-lms/web
+\`\`\`
+
+## 📝 Code Quality
+
+This project uses:
+
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **Husky** for pre-commit hooks
+- **lint-staged** for staged file linting
+- **TypeScript** for type safety
+
+Pre-commit hooks automatically:
+1. Lint and fix code issues
+2. Format code with Prettier
+3. Run type checking
+4. Run tests
+
+## 🔧 Development
+
+### Adding Dependencies
+
+\`\`\`bash
+# Add to specific workspace
+npm install <package> --workspace=@quran-crm-lms/web
+
+# Add to root (dev dependencies)
+npm install <package> --save-dev
+\`\`\`
+
+### Creating New Packages
+
+\`\`\`bash
+# Create new package directory
+mkdir packages/new-package
+cd packages/new-package
+npm init -y
+
+# Update package.json name to @quran-crm-lms/new-package
+# Add to turbo.json pipeline if needed
+\`\`\`
+
+## 📊 Database Schema
+
+The database includes models for:
+
+- **Users** (Admin, Teacher, Student roles)
+- **Courses** with lessons and enrollment
+- **Progress** tracking
+- **Assignments** and submissions
+
+See \`packages/db/prisma/schema.prisma\` for the complete schema.
+
+## 🚀 Deployment
+
+### CI/CD Pipeline
+
+The GitHub Actions workflow (\`.github/workflows/ci.yml\`) runs:
+
+1. **Lint** - Code quality checks
+2. **Type Check** - TypeScript validation
+3. **Test** - Unit and integration tests
+4. **Build** - Production builds
+5. **Database** - Migration validation
+
+### Production Deployment
+
+1. Set production environment variables
+2. Build the applications: \`npm run build\`
+3. Deploy using your preferred platform (Vercel, AWS, etc.)
+4. Run database migrations: \`npm run db:migrate\`
+
+## 🛠️ Technologies Used
+
+### Frontend (apps/web)
+- Next.js 14 with App Router
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- next-seo for SEO
+- Vitest for testing
+
+### Backend (apps/api)
+- NestJS
+- TypeScript
+- Prisma ORM
+- Zod validation
+- BullMQ for job queues
+- Jest for testing
+
+### Shared Packages
+- Prisma for database
+- Zod for schemas
+- EventEmitter3 for events
+- Shared UI components
+
+### Infrastructure
+- PostgreSQL database
+- Redis for caching/queues
+- MailHog for email testing
+- Docker Compose for local development
+
+### Development Tools
+- Turborepo for monorepo management
+- ESLint + Prettier for code quality
+- Husky + lint-staged for git hooks
+- GitHub Actions for CI/CD
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Ensure all checks pass
+6. Submit a pull request
+
+## 📞 Support
+
+For questions and support, please open an issue in the GitHub repository.
