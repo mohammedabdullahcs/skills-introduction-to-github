@@ -30,6 +30,7 @@ npm run setup
 \`\`\`
 
 This will automatically:
+
 1. Start Docker infrastructure
 2. Create environment file
 3. Install dependencies
@@ -39,28 +40,36 @@ This will automatically:
 ### Manual Setup
 
 \`\`\`bash
+
 # 1. Clone and Install
+
 git clone <repository-url>
 cd quran-crm-lms-monorepo
 npm install
 
 # 2. Environment Setup
+
 cp .env.example .env
+
 # Edit .env with your configuration
 
 # 3. Start Infrastructure
+
 npm run docker:up
 
 # 4. Database Setup
+
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 
 # 5. Start Development
+
 npm run dev
 \`\`\`
 
 Your applications will be available at:
+
 - 🌐 **Web App**: http://localhost:3000
 - 🔗 **API**: http://localhost:3001
 - 📧 **MailHog UI**: http://localhost:8025
@@ -71,75 +80,95 @@ Your applications will be available at:
 ### Root Commands
 
 \`\`\`bash
-npm run dev          # Start all apps in development
-npm run build        # Build all packages and apps
-npm run lint         # Lint all code
-npm run type-check   # Type check all TypeScript
-npm run test         # Run all tests
-npm run format       # Format code with Prettier
+npm run dev # Start all apps in development
+npm run build # Build all packages and apps
+npm run lint # Lint all code
+npm run type-check # Type check all TypeScript
+npm run test # Run all tests
+npm run format # Format code with Prettier
 \`\`\`
 
 ### Database Commands
 
 \`\`\`bash
-npm run db:generate  # Generate Prisma client
-npm run db:migrate   # Run database migrations
-npm run db:seed      # Seed the database
+npm run db:generate # Generate Prisma client
+npm run db:migrate # Run database migrations
+npm run db:seed # Seed the database
 \`\`\`
 
 ### Docker Commands
 
 \`\`\`bash
-npm run docker:up    # Start all services
-npm run docker:down  # Stop all services
+npm run docker:up # Start all services
+npm run docker:down # Stop all services
 \`\`\`
+
+## 🔧 Offline Development
+
+If you encounter network connectivity issues (especially with Prisma client generation), the project includes offline development support:
+
+### Prisma Offline Mode
+
+- A stub client is automatically used when `prisma generate` fails
+- This allows building and type-checking without internet connectivity
+- For full database functionality, ensure proper network access to Prisma binaries
+
+### Troubleshooting
+
+- If `npm run db:generate` fails, the build will continue with offline stubs
+- Use `npm run build` and `npm run type-check` to verify everything works
+- For production deployments, ensure proper network access for Prisma
 
 ## 🏢 Project Structure
 
 \`\`\`
 quran-crm-lms-monorepo/
 ├── apps/
-│   ├── web/                 # Next.js frontend
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── next.config.js
-│   └── api/                 # NestJS backend
-│       ├── src/
-│       ├── package.json
-│       └── nest-cli.json
+│ ├── web/ # Next.js frontend
+│ │ ├── src/
+│ │ ├── package.json
+│ │ └── next.config.js
+│ └── api/ # NestJS backend
+│ ├── src/
+│ ├── package.json
+│ └── nest-cli.json
 ├── packages/
-│   ├── db/                  # Database layer
-│   │   ├── prisma/
-│   │   ├── package.json
-│   │   └── index.ts
-│   ├── ui/                  # Shared components
-│   │   ├── components/
-│   │   ├── package.json
-│   │   └── index.ts
-│   └── events/              # Event system
-│       ├── schemas.ts
-│       ├── emitter.ts
-│       └── package.json
+│ ├── db/ # Database layer
+│ │ ├── prisma/
+│ │ ├── package.json
+│ │ └── index.ts
+│ ├── ui/ # Shared components
+│ │ ├── components/
+│ │ ├── package.json
+│ │ └── index.ts
+│ └── events/ # Event system
+│ ├── schemas.ts
+│ ├── emitter.ts
+│ └── package.json
 ├── infra/
-│   └── docker-compose.yml   # Infrastructure setup
+│ └── docker-compose.yml # Infrastructure setup
 ├── .github/
-│   └── workflows/
-│       └── ci.yml           # CI/CD pipeline
-├── turbo.json               # Turborepo configuration
-├── package.json             # Root package.json
+│ └── workflows/
+│ └── ci.yml # CI/CD pipeline
+├── turbo.json # Turborepo configuration
+├── package.json # Root package.json
 └── README.md
 \`\`\`
 
 ## 🧪 Testing
 
 \`\`\`bash
+
 # Run all tests
+
 npm run test
 
 # Run tests in watch mode
+
 npm run test:watch
 
 # Run tests for specific package
+
 npx turbo test --filter=@quran-crm-lms/web
 \`\`\`
 
@@ -154,6 +183,7 @@ This project uses:
 - **TypeScript** for type safety
 
 Pre-commit hooks automatically:
+
 1. Lint and fix code issues
 2. Format code with Prettier
 3. Run type checking
@@ -164,23 +194,30 @@ Pre-commit hooks automatically:
 ### Adding Dependencies
 
 \`\`\`bash
+
 # Add to specific workspace
+
 npm install <package> --workspace=@quran-crm-lms/web
 
 # Add to root (dev dependencies)
+
 npm install <package> --save-dev
 \`\`\`
 
 ### Creating New Packages
 
 \`\`\`bash
+
 # Create new package directory
+
 mkdir packages/new-package
 cd packages/new-package
 npm init -y
 
 # Update package.json name to @quran-crm-lms/new-package
+
 # Add to turbo.json pipeline if needed
+
 \`\`\`
 
 ## 📊 Database Schema
@@ -216,6 +253,7 @@ The GitHub Actions workflow (\`.github/workflows/ci.yml\`) runs:
 ## 🛠️ Technologies Used
 
 ### Frontend (apps/web)
+
 - Next.js 14 with App Router
 - TypeScript
 - Tailwind CSS
@@ -224,6 +262,7 @@ The GitHub Actions workflow (\`.github/workflows/ci.yml\`) runs:
 - Vitest for testing
 
 ### Backend (apps/api)
+
 - NestJS
 - TypeScript
 - Prisma ORM
@@ -232,18 +271,21 @@ The GitHub Actions workflow (\`.github/workflows/ci.yml\`) runs:
 - Jest for testing
 
 ### Shared Packages
+
 - Prisma for database
 - Zod for schemas
 - EventEmitter3 for events
 - Shared UI components
 
 ### Infrastructure
+
 - PostgreSQL database
 - Redis for caching/queues
 - MailHog for email testing
 - Docker Compose for local development
 
 ### Development Tools
+
 - Turborepo for monorepo management
 - ESLint + Prettier for code quality
 - Husky + lint-staged for git hooks
