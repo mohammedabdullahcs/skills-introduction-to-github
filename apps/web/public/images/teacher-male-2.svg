@@ -1,0 +1,6 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#e5e7eb"/>
+  <circle cx="100" cy="80" r="30" fill="#9ca3af"/>
+  <rect x="70" y="130" width="60" height="40" fill="#9ca3af" rx="20"/>
+  <text x="100" y="185" text-anchor="middle" fill="#6b7280" font-family="Arial" font-size="12">Male Teacher 2</text>
+</svg>
