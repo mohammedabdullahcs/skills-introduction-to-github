@@ -1,0 +1,164 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Auth Schema - Users and Authentication
+model User {
+  id             String   @id @default(cuid())
+  role           UserRole
+  name           String
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+
+  // Relations
+  teacherProfile TeacherProfile?
+  studentProfile StudentProfile?
+  events         Event[]
+
+  @@map("auth_users")
+}
+
+enum UserRole {
+  student
+  teacher
+  parent
+  admin
+
+  @@map("auth_user_roles")
+}
+
+// CRM Schema - Lead Management
+model Lead {
+  id     String     @id @default(cuid())
+  name   String
+  email  String
+  phone  String?
+  source String?
+  status LeadStatus @default(new)
+
+  @@map("crm_leads")
+}
+
+enum LeadStatus {
+  new
+  contacted
+  qualified
+  converted
+  lost
+
+  @@map("crm_lead_statuses")
+}
+
+// LMS Schema - Learning Management
+model TeacherProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  bio            String?
+  languages      String?
+  gender         Gender?
+  certifications String?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("lms_teacher_profiles")
+}
+
+model StudentProfile {
+  id       String  @id @default(cuid())
+  userId   String  @unique
+  goals    String?
+  timezone String?
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices Invoice[]
+
+  @@map("lms_student_profiles")
+}
+
+enum Gender {
+  male
+  female
+  other
+
+  @@map("lms_genders")
+}
+
+// Billing Schema - Invoice Management
+model Invoice {
+  id        String        @id @default(cuid())
+  studentId String
+  amount    Float
+  currency  String        @default("USD")
+  status    InvoiceStatus @default(pending)
+  createdAt DateTime      @default(now())
+
+  // Relations
+  student StudentProfile @relation(fields: [studentId], references: [id])
+
+  @@map("billing_invoices")
+}
+
+enum InvoiceStatus {
+  pending
+  paid
+  failed
+  cancelled
+
+  @@map("billing_invoice_statuses")
+}
+
+// Communications Schema - Message Management
+model MessageLog {
+  id       String            @id @default(cuid())
+  to       String
+  channel  MessageChannel
+  template String
+  status   MessageStatus     @default(pending)
+  metadata String? // JSON string for SQLite compatibility
+  sentAt   DateTime          @default(now())
+
+  @@map("comms_message_logs")
+}
+
+enum MessageChannel {
+  email
+  sms
+  push
+  webhook
+
+  @@map("comms_message_channels")
+}
+
+enum MessageStatus {
+  pending
+  sent
+  delivered
+  failed
+
+  @@map("comms_message_statuses")
+}
+
+// Analytics Schema - Event Tracking
+model Event {
+  id         String   @id @default(cuid())
+  userId     String?
+  name       String
+  properties String? // JSON string for SQLite compatibility
+  timestamp  DateTime @default(now())
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("analytics_events")
+}
