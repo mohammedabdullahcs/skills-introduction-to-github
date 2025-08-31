@@ -79,3 +79,4 @@ coverage/
 
 # Prisma
 packages/db/generated/
+packages/db/prisma/generated/
