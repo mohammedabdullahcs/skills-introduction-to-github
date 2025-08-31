@@ -26,10 +26,11 @@ export const metadata: Metadata = {
     description: "Professional online Quran education with certified teachers. Book your free trial lesson today.",
     creator: "@quranlearning",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

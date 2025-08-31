@@ -1,5 +1,4 @@
 "use client";
-import { NextSeo } from 'next-seo';
 import { CTAButton, TeacherCard, Testimonial, FAQList } from '@quran-platform/ui';
 
 const teachersData = [
@@ -134,33 +133,6 @@ const jsonLd = {
 export default function Home() {
   return (
     <>
-      <NextSeo
-        title="Learn Quran Online with Certified Teachers | Quran Learning Platform"
-        description="Professional online Quran education with certified teachers. Book your free trial lesson today. Flexible scheduling, personalized learning, all ages welcome."
-        canonical="https://quran-learning-platform.com"
-        openGraph={{
-          type: 'website',
-          locale: 'en_US',
-          url: 'https://quran-learning-platform.com',
-          siteName: 'Quran Learning Platform',
-          title: 'Learn Quran Online with Certified Teachers',
-          description: 'Professional online Quran education with certified teachers. Book your free trial lesson today.',
-          images: [
-            {
-              url: 'https://quran-learning-platform.com/images/og-image.jpg',
-              width: 1200,
-              height: 630,
-              alt: 'Quran Learning Platform - Online Education',
-            }
-          ]
-        }}
-        twitter={{
-          handle: '@quranlearning',
-          site: '@quranlearning',
-          cardType: 'summary_large_image',
-        }}
-      />
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
